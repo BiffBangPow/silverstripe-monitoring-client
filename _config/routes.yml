@@ -1,0 +1,10 @@
+---
+Name: approutes
+After:
+  - '#rootroutes'
+  - '#coreroutes'
+---
+SilverStripe\Control\Director:
+  rules:
+    'montoro': 'BiffBangPow\SSMonitor\Client\Control\ClientController'
+

@@ -1,0 +1,34 @@
+{
+    "name": "biffbangpow/silverstripe-monitoring-client",
+    "description": "Monitoring client",
+    "type": "silverstripe-vendormodule",
+    "homepage": "https://github.com/BiffBangPow/silverstripe-monitoring-client",
+    "keywords": [
+        "silverstripe",
+        "monitoring"
+    ],
+    "authors": [
+        {
+            "name": "James Heathcote",
+            "email": "james.h@biffbangpow.com"
+        },
+        {
+            "name": "Tim Burt",
+            "email": "tim@biffbangpow.com"
+        }
+    ],
+    "require": {
+        "silverstripe/vendor-plugin": "^1.0",
+        "silverstripe/cms": "^4.0",
+        "ext-sodium": "*"
+    },
+    "license": "BSD-3-Clause",
+    "autoload": {
+        "psr-4": {
+            "BiffBangPow\\SSMonitor\\Client\\": "src/"
+        }
+    },
+    "extra": {
+    },
+    "minimum-stability": "dev"
+}
