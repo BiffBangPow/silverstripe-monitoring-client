@@ -17,13 +17,23 @@ class ClientController extends ContentController
     {
         $api_key = Environment::getEnv('MONITORING_API_KEY');
         $authKey = $request->postVar('key');
-        if ((!$api_key) || ($api_key !== $authKey)) {
+        if ((!$api_key) || ($api_key !== $authKey) || (!$this->checkIPvalidity($request))) {
             return $this->httpError(404);
         }
 
         return $this->getReportResponse();
     }
 
+
+    /**
+     * Check that the request is from a permissible source, assuming one has been set
+     * @todo - Write this functionality!  (Using IPHelper)
+     * @param HTTPRequest $request
+     * @return boolean
+     */
+    private function checkIPvalidity(HTTPRequest $request) {
+        return true;
+    }
 
     private function getReportResponse()
     {
