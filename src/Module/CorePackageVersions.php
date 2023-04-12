@@ -12,18 +12,15 @@ class CorePackageVersions implements ClientInterface
 {
 
     use ClientCommon;
+    use Configurable;
 
     private string $clientName = 'corepackages';
 
+    private static $included_modules;
+
     public function getResult($config = null)
     {
-        // TODO:  Deal with configuration options
-
-        $modules = [
-            'silverstripe/framework',
-            'silverstripe/cms',
-            'dnadesign/silverstripe-elemental'
-        ];
+        $modules = $this->config()->get('included_modules');
 
         /**
          * @var VersionProvider $versionProvider
