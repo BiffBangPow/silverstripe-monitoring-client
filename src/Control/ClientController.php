@@ -38,7 +38,9 @@ class ClientController extends ContentController
             AllPackageVersions::class
         ];
 
-        $result = [];
+        $result = [
+            'clientid' => Environment::getEnv('MONITORING_UUID')
+        ];
 
         foreach ($classes as $class) {
             $classOut = (new $class)->getResult();
