@@ -3,6 +3,8 @@
 namespace BiffBangPow\SSMonitor\Client\Module;
 
 use BiffBangPow\SSMonitor\Client\Core\ClientCommon;
+use GuzzleHttp\Client;
+use GuzzleHttp\Promise;
 use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Core\Environment;
 use SilverStripe\ORM\ArrayList;
@@ -49,6 +51,10 @@ class SystemInfo implements \BiffBangPow\SSMonitor\Client\Core\ClientInterface
             'hostip' => [
                 'label' => _t(__CLASS__ . '.hostip', 'IP address'),
                 'value' => $_SERVER['SERVER_ADDR']
+            ],
+            'publicip' => [
+                'label' => _t(__CLASS__ . '.publicip', 'Public IP address'),
+                'value' => $this->getPublicIP()
             ],
             'memorylimit' => [
                 'label' => _t(__CLASS__ . '.memorylimit', 'Memory limit'),
@@ -132,5 +138,23 @@ class SystemInfo implements \BiffBangPow\SSMonitor\Client\Core\ClientInterface
             'Variables' => $variables,
             'Environment' => $envVariables
         ]));
+    }
+
+    function getPublicIP()
+    {
+        $client = new Client();
+        $promise = $client->getAsync('https://api.ipify.org');
+
+        $promise->then(
+            function ($response) {
+                $publicIp = $response->getBody()->getContents();
+                return $publicIp;
+            },
+            function ($exception) {
+                return 'Error: ' . $exception->getMessage();
+            }
+        );
+
+        $promise->wait();
     }
 }
