@@ -105,6 +105,7 @@ class SystemInfo implements \BiffBangPow\SSMonitor\Client\Core\ClientInterface
     {
         $data = $this->getResult()[$this->getClientName()];
         $variables = ArrayList::create();
+        $envVariables = false;
 
         $env = (isset($data['environment'])) ? $data['environment'] : false;
         if ($env) {
@@ -126,12 +127,10 @@ class SystemInfo implements \BiffBangPow\SSMonitor\Client\Core\ClientInterface
         }
 
         $viewer = new SSViewer('BiffBangPow/SSMonitor/Client/Module/SystemInfo');
-        $html = $viewer->process(ArrayData::create([
+        return $viewer->process(ArrayData::create([
             'Title' => $this->getClientTitle(),
             'Variables' => $variables,
             'Environment' => $envVariables
         ]));
-
-        return $html;
     }
 }
