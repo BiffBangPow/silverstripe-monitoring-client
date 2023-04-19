@@ -5,11 +5,14 @@ Name: bbp-monitor-client
 SilverStripe\SiteConfig\SiteConfig:
   extensions:
     - BiffBangPow\SSMonitor\Client\Extension\ConfigExtension
-  
+
 BiffBangPow\SSMonitor\Client\Module\CorePackageVersions:
   included_modules:
     - 'silverstripe/framework'
     - 'silverstripe/cms'
     - 'dnadesign/silverstripe-elemental'
     - 'biffbangpow/silverstripe-monitoring-client'
-      
+
+SilverStripe\Admin\LeftAndMain:
+  extra_requirements_css:
+    - biffbangpow/silverstripe-monitoring-client:client/dist/css/admin-styles.css

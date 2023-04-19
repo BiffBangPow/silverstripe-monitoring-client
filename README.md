@@ -18,3 +18,65 @@ With the exception of the valid IP value, all the above variables will be genera
 These ensure that communications between the client and server are encrypted.
 
 If set, the valid IP variable will restrict access to the monitoring system to those specified (IPV4).   IPs can be specified by a single address, an address range or a CIDR notation.
+
+A simple reporting screen is added to the site config, so that the values from the included modules can be viewed in the CMS.
+
+
+
+### Included reporting modules ###
+
+The system comes with a set of default reporting modules:
+
+#### Silverstripe configuration ####
+
+This module lists various parameters of the Silverstripe installation, including:
+
+- Site Name
+- Environment type
+- Base URL
+- Presence of default admin credentials
+
+#### System information ####
+
+This module lists information about the server environment, including:
+
+- PHP version
+- Host IP address
+- File upload limit
+- Script max execution time
+- Database engine
+- Database version
+- Database name
+
+In addition, the module can report on the value of environment variables which have been set.  These can be specified by adding a yml configuration to your project, eg:
+
+```yaml
+---
+Name: bbp-client-monitor
+---
+
+BiffBangPow\SSMonitor\Client\Module\SystemInfo:
+  env_variables:
+    - APP_SMTP_USERNAME
+    - APP_SMTP_PASSWORD
+    - CAPTCHA_SITE_KEY
+    - CAPTCHA_SECRET_KEY
+```
+
+#### Core package versions ####
+
+This module reports on the installed versions of a set of core packages.   The packages included in this report are configured in a default yml file, bundled with the module, but can be overridden as required, eg:
+
+```yaml
+BiffBangPow\SSMonitor\Client\Module\CorePackageVersions:
+  included_modules:
+    - 'silverstripe/framework'
+    - 'silverstripe/cms'
+    - 'dnadesign/silverstripe-elemental'
+    - 'biffbangpow/silverstripe-monitoring-client'
+```
+
+
+#### All package versions ####
+
+This module lists all the composer-managed packages which are installed on the system.

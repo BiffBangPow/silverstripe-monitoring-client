@@ -1,0 +1,21 @@
+table.bbp-monitor-results {
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 2rem;
+}
+
+table.bbp-monitor-results tr {
+    border: solid 1px #aaa;
+}
+
+table.bbp-monitor-results tr td, table.bbp-monitor-results thead th {
+    padding: 0.5rem 1rem;
+}
+
+.bbp-monitor-section {
+    margin-bottom: 2rem;
+}
+
+.bbp-monitor-section h2 {
+    font-weight: 700;
+}

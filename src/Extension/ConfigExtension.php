@@ -21,8 +21,7 @@ class ConfigExtension extends Extension
     public function updateCMSFields(FieldList $fields)
     {
         $status = $this->getStatus();
-        $statusHTML = HTML::createTag('pre', [], print_r($status, true));
-
+        $statusHTML = HTML::createTag('div', [], $status);
 
         $fields->addFieldsToTab('Root.Status', [
             LiteralField::create('statusheading',
@@ -40,13 +39,13 @@ class ConfigExtension extends Extension
             AllPackageVersions::class
         ];
 
-        $result = [];
+        $html = '';
 
         foreach ($classes as $class) {
-            $classOut = (new $class)->getResult();
-            $result = array_merge($result, $classOut);
+            $classInst = (new $class);
+            $html .= $classInst->forTemplate();
         }
 
-        return $result;
+        return $html;
     }
 }

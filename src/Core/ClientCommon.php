@@ -5,11 +5,8 @@ namespace BiffBangPow\SSMonitor\Client\Core;
 trait ClientCommon
 {
 
-    protected $alerts = [];
-
-    protected $warnings = [];
-
     /**
+     * Get the client name/identifier for this client module
      * @return string
      * @throws \Exception
      */
@@ -21,14 +18,17 @@ trait ClientCommon
         return $this->clientName;
     }
 
-    public function setAlert($alert)
+    /**
+     * Get the friendly name for this client module
+     * @return string
+     * @throws \Exception
+     */
+    public function getClientTitle(): string
     {
-        $this->alerts[] = $alert;
-    }
-
-    public function setWarning($warning)
-    {
-        $this->warnings[] = $warning;
+        if ($this->config()->get('client_title')) {
+            return $this->config()->get('client_title');
+        }
+        return $this->getClientName();
     }
 
 }
