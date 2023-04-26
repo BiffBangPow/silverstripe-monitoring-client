@@ -1,5 +1,7 @@
 ## Silverstripe Monitoring System
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/BiffBangPow/silverstripe-monitoring-client/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/BiffBangPow/silverstripe-monitoring-client/?branch=main)
+
 ### Client library
 
 
