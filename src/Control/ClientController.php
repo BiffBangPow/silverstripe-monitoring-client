@@ -2,6 +2,7 @@
 
 namespace BiffBangPow\SSMonitor\Client\Control;
 
+use BiffBangPow\SSMonitor\Client\Core\ClientInterface;
 use BiffBangPow\SSMonitor\Client\Helper\EncryptionHelper;
 use BiffBangPow\SSMonitor\Client\Module\AllPackageVersions;
 use BiffBangPow\SSMonitor\Client\Module\CorePackageVersions;
@@ -9,6 +10,7 @@ use BiffBangPow\SSMonitor\Client\Module\SSConfiguration;
 use BiffBangPow\SSMonitor\Client\Module\SystemInfo;
 use SilverStripe\CMS\Controllers\ContentController;
 use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Environment;
 
 /**
@@ -31,12 +33,7 @@ class ClientController extends ContentController
 
     private function getReportResponse()
     {
-        $classes = [
-            CorePackageVersions::class,
-            SystemInfo::class,
-            SSConfiguration::class,
-            AllPackageVersions::class
-        ];
+        $classes = ClassInfo::implementorsOf(ClientInterface::class);
 
         $result = [
             'clientid' => Environment::getEnv('MONITORING_UUID')

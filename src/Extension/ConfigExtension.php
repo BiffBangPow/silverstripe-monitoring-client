@@ -2,10 +2,12 @@
 
 namespace BiffBangPow\SSMonitor\Client\Extension;
 
+use BiffBangPow\SSMonitor\Client\Core\ClientInterface;
 use BiffBangPow\SSMonitor\Client\Module\AllPackageVersions;
 use BiffBangPow\SSMonitor\Client\Module\CorePackageVersions;
 use BiffBangPow\SSMonitor\Client\Module\SSConfiguration;
 use BiffBangPow\SSMonitor\Client\Module\SystemInfo;
+use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\LiteralField;
@@ -32,12 +34,7 @@ class ConfigExtension extends Extension
 
     private function getStatus()
     {
-        $classes = [
-            CorePackageVersions::class,
-            SystemInfo::class,
-            SSConfiguration::class,
-            AllPackageVersions::class
-        ];
+        $classes = ClassInfo::implementorsOf(ClientInterface::class);
 
         $html = '';
 

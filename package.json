@@ -19,7 +19,7 @@
     "babel-preset-minify": "^0.5.2",
     "bootstrap": "^5.2.2",
     "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^8.0.0",
+    "gulp-autoprefixer": "^6.1.0",
     "gulp-babel": "^8.0.0",
     "gulp-clean-css": "^4.3.0",
     "gulp-mode": "^1.1.0",
