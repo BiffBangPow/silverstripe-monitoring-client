@@ -147,8 +147,7 @@ class SystemInfo implements \BiffBangPow\SSMonitor\Client\Core\ClientInterface
 
         $promise->then(
             function($response) {
-                $publicIp = $response->getBody()->getContents();
-                return $publicIp;
+                return $response->getBody()->getContents();
             },
             function($exception) {
                 return 'Error: ' . $exception->getMessage();
