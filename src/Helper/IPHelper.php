@@ -62,7 +62,9 @@ class IPHelper
                 // $netmask is a CIDR size block
                 // fix the range argument
                 $x = explode('.', $range);
-                while (count($x) < 4) $x[] = '0';
+                while (count($x) < 4) {
+                    $x[] = '0';
+                }
                 list($a, $b, $c, $d) = $x;
                 $range = sprintf("%u.%u.%u.%u", empty($a) ? '0' : $a, empty($b) ? '0' : $b, empty($c) ? '0' : $c, empty($d) ? '0' : $d);
                 $range_dec = ip2long($range);

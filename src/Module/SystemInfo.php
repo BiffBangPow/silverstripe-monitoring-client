@@ -146,11 +146,11 @@ class SystemInfo implements \BiffBangPow\SSMonitor\Client\Core\ClientInterface
         $promise = $client->getAsync('https://api.ipify.org');
 
         $promise->then(
-            function ($response) {
+            function($response) {
                 $publicIp = $response->getBody()->getContents();
                 return $publicIp;
             },
-            function ($exception) {
+            function($exception) {
                 return 'Error: ' . $exception->getMessage();
             }
         );
