@@ -34,8 +34,14 @@ class SystemInfo implements \BiffBangPow\SSMonitor\Client\Core\ClientInterface
      */
     private static $env_variables = [];
 
+    /**
+     * @config
+     * @var bool
+     */
+    private static $discover_public_ip = true;
 
-    public function getResult($config = null)
+
+    public function getResult($config = null): array
     {
         $conn = DB::get_conn();
         // Assumes database class is like "MySQLDatabase" or "MSSQLDatabase" (eg. suffixed with "Database")
@@ -51,10 +57,6 @@ class SystemInfo implements \BiffBangPow\SSMonitor\Client\Core\ClientInterface
             'hostip' => [
                 'label' => _t(__CLASS__ . '.hostip', 'IP address'),
                 'value' => $_SERVER['SERVER_ADDR']
-            ],
-            'publicip' => [
-                'label' => _t(__CLASS__ . '.publicip', 'Public IP address'),
-                'value' => $this->getPublicIP()
             ],
             'memorylimit' => [
                 'label' => _t(__CLASS__ . '.memorylimit', 'Memory limit'),
@@ -94,6 +96,13 @@ class SystemInfo implements \BiffBangPow\SSMonitor\Client\Core\ClientInterface
             $info['environment'] = [
                 'label' => _t(__CLASS__ . '.environment', 'Environment variables'),
                 'value' => $env
+            ];
+        }
+
+        if ($this->config()->get('discover_public_ip') === true) {
+            $info['publicip'] = [
+                'label' => _t(__CLASS__ . '.publicip', 'Public IP address'),
+                'value' => $this->getPublicIP()
             ];
         }
 
@@ -145,15 +154,14 @@ class SystemInfo implements \BiffBangPow\SSMonitor\Client\Core\ClientInterface
         $client = new Client();
         $promise = $client->getAsync('https://api.ipify.org');
 
-        $promise->then(
-            function($response) {
-                return $response->getBody()->getContents();
-            },
-            function($exception) {
-                return 'Error: ' . $exception->getMessage();
-            }
-        );
+        try {
+            $response = $promise->wait();
+            $ipAddress = $response->getBody()->getContents();
+        } catch (\Exception $e) {
+            // Handle exception if request fails
+            $ipAddress = _t(__CLASS__ . '.publiciperror', 'Error getting IP address');
+        }
 
-        $promise->wait();
+        return $ipAddress;
     }
 }
