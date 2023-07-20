@@ -50,6 +50,17 @@ This module lists information about the server environment, including:
 - Database version
 - Database name
 
+The module will attempt to discover the public IP address of the client usign the ipify service.  This can be disabled via a yml config, eg:
+
+```yaml
+---
+Name: bbp-client-monitor
+---
+
+BiffBangPow\SSMonitor\Client\Module\SystemInfo:
+  discover_public_ip: false
+```
+
 In addition, the module can report on the value of environment variables which have been set.  These can be specified by adding a yml configuration to your project, eg:
 
 ```yaml
