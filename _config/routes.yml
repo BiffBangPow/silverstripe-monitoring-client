@@ -1,5 +1,5 @@
 ---
-Name: approutes
+Name: bbp-monitoring-client-routes
 After:
   - '#rootroutes'
   - '#coreroutes'
