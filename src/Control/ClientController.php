@@ -4,12 +4,10 @@ namespace BiffBangPow\SSMonitor\Client\Control;
 
 use BiffBangPow\SSMonitor\Client\Core\ClientInterface;
 use BiffBangPow\SSMonitor\Client\Helper\EncryptionHelper;
-use BiffBangPow\SSMonitor\Client\Module\AllPackageVersions;
-use BiffBangPow\SSMonitor\Client\Module\CorePackageVersions;
-use BiffBangPow\SSMonitor\Client\Module\SSConfiguration;
-use BiffBangPow\SSMonitor\Client\Module\SystemInfo;
 use SilverStripe\CMS\Controllers\ContentController;
+use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Control\Util\IPUtils;
 use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Environment;
 
@@ -24,8 +22,23 @@ class ClientController extends ContentController
         $api_key = Environment::getEnv('MONITORING_API_KEY');
         $authKey = $request->postVar('key');
         if ((!$api_key) || ($api_key !== $authKey)) {
-            return $this->httpError(404);
+            return (Director::isDev())
+                ? $this->httpError(400, _t(__CLASS__ . '.IncorrectAPIKey', 'API key not recognised'))
+                : $this->httpError(404);
         }
+
+        $validIP = Environment::getEnv('MONITORING_VALID_IP');
+        if ($validIP) {
+            $requestIP = $request->getIP();
+            if (!IPUtils::checkIP($requestIP, $validIP)) {
+                return (Director::isDev())
+                    ? $this->httpError(400, _t(__CLASS__ . '.InvalidIP', 'Invalid request IP ({requestip})', [
+                        'requestip' => $requestIP
+                    ]))
+                    : $this->httpError(404);
+            }
+        }
+
 
         return $this->getReportResponse();
     }
