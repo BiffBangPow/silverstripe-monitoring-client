@@ -16,3 +16,18 @@ BiffBangPow\SSMonitor\Client\Module\CorePackageVersions:
 SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
     - biffbangpow/silverstripe-monitoring-client:client/dist/css/admin-styles.css
+
+SilverStripe\Core\Injector\Injector:
+  MontoroRateLimitMiddleware:
+    class: SilverStripe\Control\Middleware\RateLimitMiddleware
+    properties:
+      ExtraKey: 'ssmonitoring'
+      MaxAttempts: 1
+      Decay: 1
+
+  MontoroRateLimitedController:
+    class: SilverStripe\Control\Middleware\RequestHandlerMiddlewareAdapter
+    properties:
+      RequestHandler: '%$BiffBangPow\SSMonitor\Client\Control\ClientController'
+      Middlewares:
+        - '%$MontoroRateLimitMiddleware'

@@ -6,5 +6,5 @@ After:
 ---
 SilverStripe\Control\Director:
   rules:
-    'montoro': 'BiffBangPow\SSMonitor\Client\Control\ClientController'
+    'montoro': '%$MontoroRateLimitedController'
 
