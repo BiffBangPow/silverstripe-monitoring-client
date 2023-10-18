@@ -8,6 +8,10 @@
 This module is built to work alongside the monitoring server system.  It will, however, operate as a standalone information page on the site where it is installed.   
 With no configuration, a simple reporting screen is added to the site config, so that the values from the included modules can be viewed in the CMS.
 
+![](https://user-images.githubusercontent.com/79973633/276407690-8e0a089d-18f9-4d63-a38e-31531406088a.jpg)
+
+### Monitoring system integration
+
 By adding the following environment variables, the system can be integrated into the monitoring server system to provide centralised reporting (see the server repository for further information):
 
 ```
