@@ -17,7 +17,7 @@ use SilverStripe\View\HTML;
  */
 class ConfigExtension extends Extension
 {
-    public function updateCMSFields(FieldList $fields)
+    protected function updateCMSFields(FieldList $fields)
     {
         $status = $this->getStatus();
         $statusHTML = HTML::createTag('div', [], $status);

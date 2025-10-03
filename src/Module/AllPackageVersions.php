@@ -2,7 +2,7 @@
 
 namespace BiffBangPow\SSMonitor\Client\Module;
 
-use ReflectionClass;
+use Composer\InstalledVersions;
 use SilverStripe\Model\List\ArrayList;
 use SilverStripe\Model\ArrayData;
 use SilverStripe\ORM\FieldType\DBHTMLText;
@@ -10,7 +10,6 @@ use Exception;
 use BiffBangPow\SSMonitor\Client\Core\ClientCommon;
 use BiffBangPow\SSMonitor\Client\Core\ClientInterface;
 use SilverStripe\Core\Config\Configurable;
-use SilverStripe\Core\Manifest\VersionProvider;
 use SilverStripe\View\SSViewer;
 
 class AllPackageVersions implements ClientInterface
@@ -34,21 +33,17 @@ class AllPackageVersions implements ClientInterface
     {
         $packages = [];
 
-        /**
-         * @var VersionProvider $versionProvider
-         */
-        $ref = new ReflectionClass(VersionProvider::class);
-        $refMethod = $ref->getMethod('getComposerLock');
-        $refMethod->setAccessible(true);
+        // Get all installed packages using Composer's InstalledVersions API
+        $installedPackages = InstalledVersions::getInstalledPackages();
 
-        $lockContents = $refMethod->invoke(new VersionProvider());
-
-        if (isset($lockContents['packages'])) {
-            foreach ($lockContents['packages'] as $package) {
-                $packageName = $package['name'];
-                $version = $package['version'];
-                $packages[$packageName] = $version;
+        foreach ($installedPackages as $packageName) {
+            // Skip the root package
+            if (InstalledVersions::getRootPackage()['name'] === $packageName) {
+                continue;
             }
+
+            $version = InstalledVersions::getPrettyVersion($packageName);
+            $packages[$packageName] = $version;
         }
 
         return [
