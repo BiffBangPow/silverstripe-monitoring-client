@@ -2,14 +2,14 @@
 
 namespace BiffBangPow\SSMonitor\Client\Module;
 
+use SilverStripe\Model\List\ArrayList;
+use SilverStripe\Model\ArrayData;
 use BiffBangPow\SSMonitor\Client\Core\ClientCommon;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Config\Configurable;
 use BiffBangPow\SSMonitor\Client\Core\ClientInterface;
 use SilverStripe\Core\Environment;
-use SilverStripe\ORM\ArrayList;
 use SilverStripe\SiteConfig\SiteConfig;
-use SilverStripe\View\ArrayData;
 use SilverStripe\View\SSViewer;
 
 class SSConfiguration implements ClientInterface
@@ -67,7 +67,7 @@ class SSConfiguration implements ClientInterface
             $data['defaultadmin']['value'] = ($data['defaultadmin']['value']) ? _t(__CLASS__ . '.yes', "Yes") : _t(__CLASS__ . '.no', "No");
         }
 
-        foreach ($data as $id => $values) {
+        foreach ($data as $values) {
             $variables->push(ArrayData::create([
                 'Variable' => $values['label'],
                 'Value' => $values['value']

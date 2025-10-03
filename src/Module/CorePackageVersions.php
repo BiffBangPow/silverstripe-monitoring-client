@@ -2,14 +2,15 @@
 
 namespace BiffBangPow\SSMonitor\Client\Module;
 
+use SilverStripe\Model\List\ArrayList;
+use SilverStripe\Model\ArrayData;
+use SilverStripe\ORM\FieldType\DBHTMLText;
+use Exception;
 use BiffBangPow\SSMonitor\Client\Core\ClientCommon;
 use BiffBangPow\SSMonitor\Client\Core\ClientInterface;
 use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Core\Manifest\VersionProvider;
-use SilverStripe\ORM\ArrayList;
-use SilverStripe\View\ArrayData;
-use SilverStripe\View\HTML;
 use SilverStripe\View\SSViewer;
 
 class CorePackageVersions implements ClientInterface
@@ -41,8 +42,8 @@ class CorePackageVersions implements ClientInterface
 
     /**
      *
-     * @return \SilverStripe\ORM\FieldType\DBHTMLText
-     * @throws \Exception
+     * @return DBHTMLText
+     * @throws Exception
      */
     public function forTemplate()
     {

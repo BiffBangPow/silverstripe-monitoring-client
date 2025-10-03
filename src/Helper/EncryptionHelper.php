@@ -2,6 +2,7 @@
 
 namespace BiffBangPow\SSMonitor\Client\Helper;
 
+use Exception;
 use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Core\Environment;
 
@@ -33,7 +34,7 @@ class EncryptionHelper
         $encSalt = Environment::getEnv('MONITORING_ENC_SALT');
 
         if (!$encSalt || !$encSecret) {
-            throw new \Exception("Missing encryption keys in environment");
+            throw new Exception("Missing encryption keys in environment");
         }
 
         $this->setSecret($encSecret);

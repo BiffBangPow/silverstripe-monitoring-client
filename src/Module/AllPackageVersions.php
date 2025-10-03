@@ -2,13 +2,15 @@
 
 namespace BiffBangPow\SSMonitor\Client\Module;
 
+use ReflectionClass;
+use SilverStripe\Model\List\ArrayList;
+use SilverStripe\Model\ArrayData;
+use SilverStripe\ORM\FieldType\DBHTMLText;
+use Exception;
 use BiffBangPow\SSMonitor\Client\Core\ClientCommon;
 use BiffBangPow\SSMonitor\Client\Core\ClientInterface;
 use SilverStripe\Core\Config\Configurable;
-use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Core\Manifest\VersionProvider;
-use SilverStripe\ORM\ArrayList;
-use SilverStripe\View\ArrayData;
 use SilverStripe\View\SSViewer;
 
 class AllPackageVersions implements ClientInterface
@@ -35,7 +37,7 @@ class AllPackageVersions implements ClientInterface
         /**
          * @var VersionProvider $versionProvider
          */
-        $ref = new \ReflectionClass(VersionProvider::class);
+        $ref = new ReflectionClass(VersionProvider::class);
         $refMethod = $ref->getMethod('getComposerLock');
         $refMethod->setAccessible(true);
 
@@ -56,8 +58,8 @@ class AllPackageVersions implements ClientInterface
 
     /**
      *
-     * @return \SilverStripe\ORM\FieldType\DBHTMLText
-     * @throws \Exception
+     * @return DBHTMLText
+     * @throws Exception
      */
     public function forTemplate()
     {
