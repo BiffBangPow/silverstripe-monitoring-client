@@ -2,17 +2,19 @@
 
 namespace BiffBangPow\SSMonitor\Client\Module;
 
+use BiffBangPow\SSMonitor\Client\Core\ClientInterface;
+use SilverStripe\Model\List\ArrayList;
+use SilverStripe\Model\ArrayData;
+use Exception;
+use SilverStripe\ORM\FieldType\DBHTMLText;
 use BiffBangPow\SSMonitor\Client\Core\ClientCommon;
 use GuzzleHttp\Client;
-use GuzzleHttp\Promise;
 use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Core\Environment;
-use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DB;
-use SilverStripe\View\ArrayData;
 use SilverStripe\View\SSViewer;
 
-class SystemInfo implements \BiffBangPow\SSMonitor\Client\Core\ClientInterface
+class SystemInfo implements ClientInterface
 {
     use ClientCommon;
     use Configurable;
@@ -113,8 +115,8 @@ class SystemInfo implements \BiffBangPow\SSMonitor\Client\Core\ClientInterface
 
     /**
      *
-     * @return \SilverStripe\ORM\FieldType\DBHTMLText
-     * @throws \Exception
+     * @return DBHTMLText
+     * @throws Exception
      */
     public function forTemplate()
     {
@@ -134,7 +136,7 @@ class SystemInfo implements \BiffBangPow\SSMonitor\Client\Core\ClientInterface
             }
         }
 
-        foreach ($data as $id => $values) {
+        foreach ($data as $values) {
             $variables->push(ArrayData::create([
                 'Variable' => $values['label'],
                 'Value' => $values['value']
@@ -157,7 +159,7 @@ class SystemInfo implements \BiffBangPow\SSMonitor\Client\Core\ClientInterface
         try {
             $response = $promise->wait();
             $ipAddress = $response->getBody()->getContents();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Handle exception if request fails
             $ipAddress = _t(__CLASS__ . '.publiciperror', 'Error getting IP address');
         }

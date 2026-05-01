@@ -2,11 +2,8 @@
 
 namespace BiffBangPow\SSMonitor\Client\Extension;
 
+use SilverStripe\SiteConfig\SiteConfig;
 use BiffBangPow\SSMonitor\Client\Core\ClientInterface;
-use BiffBangPow\SSMonitor\Client\Module\AllPackageVersions;
-use BiffBangPow\SSMonitor\Client\Module\CorePackageVersions;
-use BiffBangPow\SSMonitor\Client\Module\SSConfiguration;
-use BiffBangPow\SSMonitor\Client\Module\SystemInfo;
 use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
@@ -16,11 +13,11 @@ use SilverStripe\View\HTML;
 /**
  * Class \BiffBangPow\SSMonitor\Client\Extension\ConfigExtension
  *
- * @property \SilverStripe\SiteConfig\SiteConfig|\BiffBangPow\SSMonitor\Client\Extension\ConfigExtension $owner
+ * @property SiteConfig|\BiffBangPow\SSMonitor\Client\Extension\ConfigExtension $owner
  */
 class ConfigExtension extends Extension
 {
-    public function updateCMSFields(FieldList $fields)
+    protected function updateCMSFields(FieldList $fields)
     {
         $status = $this->getStatus();
         $statusHTML = HTML::createTag('div', [], $status);
