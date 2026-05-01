@@ -2,6 +2,11 @@
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/BiffBangPow/silverstripe-monitoring-client/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/BiffBangPow/silverstripe-monitoring-client/?branch=main)
 
+### Version
+
+- For CMS 4/5 use 1.x
+- For CMS 6 use 2.x 
+
 ### Client library
 
 
