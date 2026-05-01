@@ -56,7 +56,7 @@ class SystemInfo implements \BiffBangPow\SSMonitor\Client\Core\ClientInterface
             ],
             'hostip' => [
                 'label' => _t(__CLASS__ . '.hostip', 'IP address'),
-                'value' => $_SERVER['SERVER_ADDR']
+                'value' => $_SERVER['SERVER_ADDR'] ?? 'Unknown'
             ],
             'memorylimit' => [
                 'label' => _t(__CLASS__ . '.memorylimit', 'Memory limit'),
